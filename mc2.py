@@ -709,7 +709,7 @@ class TOOLS():
             }
             try:
                 # Send a GET request to the URL
-                response = requests.get(url, headers=heads, proxies=proxy)
+                response = requests.get(url, headers=heads)
 
                 # Check if the request was successful (status code 200)
                 if response.status_code == 200:
