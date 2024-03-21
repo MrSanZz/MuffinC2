@@ -160,6 +160,7 @@ class logo():
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"proxyhunt "+'\033[1;35m'+"   | "+'\033[0m'+"Hunt random    "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║                | "+'\033[0m'+"proxy           "+'\033[1;35m'+"║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"siteinfo "+'\033[1;35m'+"    | "+'\033[0m'+"site info      "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"wpbrute "+'\033[1;35m'+"     | "+'\033[0m'+"wpbrute        "+'\033[1;35m'+" ║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
 class DDOS():
@@ -1112,6 +1113,8 @@ class main():
                     TOOLS.proxyhunt()
                 elif prompt.lower() == 'siteinfo':
                     TOOLS.site_info()
+                elif prompt.lower() == 'wpbrute':
+                    TOOLS.__function__.wp_bruteforce()
                 elif prompt.lower() == 'exit':
                     print("Cya! ;).")
                     exit()
