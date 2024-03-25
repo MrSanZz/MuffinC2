@@ -154,6 +154,7 @@ class logo():
         logo += "\t\t║                | "+'\033[0m'+"Head Method     "+'\033[1;35m'+"║ \n"
         logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"SICB "+'\033[1;35m'+"        | "+'\033[0m'+"Super Ion      "+'\033[1;35m'+" ║ \n"
         logo += "\t\t║                | "+'\033[0m'+"Cannon Beam     "+'\033[1;35m'+"║ \n"
+        logo += "\t\t║ "+'\033[0;31;40m'+"•"+'\033[1;35m'+" "+'\033[0m'+"NKILL "+'\033[1;35m'+"       | "+'\033[0m'+"               "+'\033[1;35m'+" ║ \n"
         logo += "\t\t╚══════════════════════════"+'\033[0m'+"════════╝ \n"
         print(logo)
     def layer4(): #udp tcp tls syn ack esp icmp ssh
@@ -1278,6 +1279,8 @@ class main():
                     DDOS.requests.head()
                 elif prompt.lower() == 'sicb':
                     DDOS.C2.SICB()
+                elif prompt.lower() == 'sicb':
+                    DDOS.NKILL()
                 elif prompt.lower() == 'crawl':
                     TOOLS.webcrawler()
                 elif prompt.lower() == 'ping':
