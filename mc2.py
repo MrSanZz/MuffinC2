@@ -1279,7 +1279,7 @@ class main():
                     DDOS.requests.head()
                 elif prompt.lower() == 'sicb':
                     DDOS.C2.SICB()
-                elif prompt.lower() == 'sicb':
+                elif prompt.lower() == 'nkill':
                     DDOS.NKILL()
                 elif prompt.lower() == 'crawl':
                     TOOLS.webcrawler()
